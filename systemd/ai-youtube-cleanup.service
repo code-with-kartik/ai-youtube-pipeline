@@ -1,0 +1,7 @@
+[Unit]
+Description=AI YouTube cleanup audit
+[Service]
+Type=oneshot
+WorkingDirectory=%h/Projects/ai-youtube-pipeline
+ExecStart=%h/Projects/ai-youtube-pipeline/.venv/bin/python -m src.cli status-all
+

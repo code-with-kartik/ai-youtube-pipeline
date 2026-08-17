@@ -1,0 +1,9 @@
+[Unit]
+Description=Run AI YouTube worker periodically
+[Timer]
+OnBootSec=10m
+OnUnitActiveSec=30m
+Persistent=true
+[Install]
+WantedBy=timers.target
+

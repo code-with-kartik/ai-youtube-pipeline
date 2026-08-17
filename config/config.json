@@ -1,0 +1,21 @@
+{
+  "publish_mode": "dry-run",
+  "ai_provider": "mock",
+  "voice_provider": "mock",
+  "visual_provider": "mock",
+  "thumbnail_provider": "mock",
+  "width": 640,
+  "height": 360,
+  "frame_rate": 24,
+  "min_duration": 2.0,
+  "max_duration": 1800.0,
+  "target_duration": 12.0,
+  "language": "en",
+  "style": "educational",
+  "retry_limit": 2,
+  "timeout_seconds": 120,
+  "retention_days": 6,
+  "burn_subtitles": true,
+  "require_subtitles": true,
+  "privacy_status": "private"
+}

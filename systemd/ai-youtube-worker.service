@@ -1,0 +1,7 @@
+[Unit]
+Description=AI YouTube pipeline worker
+[Service]
+Type=oneshot
+WorkingDirectory=%h/Projects/ai-youtube-pipeline
+ExecStart=%h/Projects/ai-youtube-pipeline/scripts/start.sh
+

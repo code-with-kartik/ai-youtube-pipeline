@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","required":["job_id","scenes"],"properties":{"job_id":{"type":"string"},"scenes":{"type":"array","items":{"type":"object","required":["scene_id","start_order","voice_text","subtitle_text","estimated_duration","visual_description","visual_prompt","asset_type","transition","importance"]}}}}
