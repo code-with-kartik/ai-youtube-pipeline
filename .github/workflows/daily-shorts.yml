@@ -1,0 +1,47 @@
+name: Daily AI Shorts
+
+on:
+  schedule:
+    - cron: "30 1 * * *" # 07:00 IST daily
+  workflow_dispatch: {}
+
+concurrency:
+  group: daily-shorts
+  cancel-in-progress: false
+
+jobs:
+  make-and-upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      UPLOAD_MODE: ${{ vars.UPLOAD_MODE || 'dry-run' }}
+      AIYT_STORAGE_ROOT: ${{ github.workspace }}/out
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps (lightweight only)
+        run: pip install --no-cache-dir edge-tts requests
+
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Run pipeline
+        run: python scripts/shorts_daily.py
+
+      - name: Upload artifact (kept even in dry-run)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shorts-${{ github.run_id }}
+          path: out/shorts_*.mp4
+          if-no-files-found: warn
+          retention-days: 7
